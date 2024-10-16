@@ -45,7 +45,12 @@ public class NewAPI {
 	@Autowired
 	public BuildingService buildingservice;
 	
-
+	@PostMapping(value = "/api/building/")
+	public String update() {
+		return "success";
+	}
+	
+	
 	@GetMapping(value = "/api/building/")
 	public Object postBuilding2(@RequestParam(value="id",required = false) Long id,@RequestParam(value="districtId",required=false) String districtId) {
 		List<BuildingResponseDTO> results=buildingservice.findAll(id,districtId);

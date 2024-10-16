@@ -47,8 +47,10 @@ public class NewAPI {
 	
 	@PostMapping(value = "/api/building/")
 	public String update() {
-		return "success";
+		return "restful-api";
 	}
+	
+	
 	
 	
 	@GetMapping(value = "/api/building/")

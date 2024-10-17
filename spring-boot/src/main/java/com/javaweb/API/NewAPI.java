@@ -54,8 +54,8 @@ public class NewAPI {
 	
 	
 	@GetMapping(value = "/api/building/")
-	public Object postBuilding2(@RequestParam(value="id",required = false) Long id,@RequestParam(value="districtId",required=false) String districtId) {
-		List<BuildingResponseDTO> results=buildingservice.findAll(id,districtId);
+	public Object postBuilding2(@RequestParam(value="id",required = false) Integer Id,@RequestParam(value="districtId",required=false) Integer districtId) {
+		List<BuildingResponseDTO> results=buildingservice.findAll(Id,districtId);
 		return results;
 	}
 

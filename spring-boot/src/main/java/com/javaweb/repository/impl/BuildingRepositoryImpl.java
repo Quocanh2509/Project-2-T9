@@ -24,7 +24,7 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 	
 	
 	@Override
-	public List<BuildingEntity> findAll(Long Id, String districtId) {
+	public List<BuildingEntity> findAll(Integer Id, Integer districtId) {
 		String sql ="SELECT * FROM estatebasic.building;";
 		List<BuildingEntity> arr=new ArrayList<>();
 		try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -36,8 +36,8 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 				building.setName(rs.getString("name"));
 				building.setStreet(rs.getString("street"));
 				building.setWard(rs.getString("ward"));
-				building.setDistrictId(rs.getString("districtId"));
-				building.setNumberofbasement(rs.getString("numberofbasement"));
+				building.setDistrictId(rs.getInt("districtId"));
+				building.setNumberofbasement(rs.getInt("numberofbasement"));
 				arr.add(building);
 			}
 			System.out.println("Connected database successfully...");

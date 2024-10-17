@@ -5,8 +5,9 @@ public class BuildingEntity {
 	private String name;
 	private String street;
 	private String ward;
-	private String districtId;
-	private String numberofbasement;
+	private Integer districtId;
+	private Integer numberofbasement;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -31,16 +32,16 @@ public class BuildingEntity {
 	public void setWard(String ward) {
 		this.ward = ward;
 	}
-	public String getDistrictId() {
+	public Integer getDistrictId() {
 		return districtId;
 	}
-	public void setDistrictId(String districtId) {
+	public void setDistrictId(Integer districtId) {
 		this.districtId = districtId;
 	}
-	public String getNumberofbasement() {
+	public Integer getNumberofbasement() {
 		return numberofbasement;
 	}
-	public void setNumberofbasement(String numberofbasement) {
+	public void setNumberofbasement(Integer numberofbasement) {
 		this.numberofbasement = numberofbasement;
 	}
 	

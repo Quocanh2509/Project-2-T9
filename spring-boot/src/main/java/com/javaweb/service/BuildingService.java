@@ -6,5 +6,5 @@ import java.util.List;
 import com.javaweb.Beans.response.BuildingResponseDTO;
 
 public interface BuildingService {
-	public List<BuildingResponseDTO> findAll(Long Id,String districtId);
+	public List<BuildingResponseDTO> findAll(Integer Id,Integer districtId);
 }

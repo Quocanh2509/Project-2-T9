@@ -19,13 +19,18 @@ public class BuildingServiceImpl implements BuildingService {
 	
 	
 	@Override
-	public List<BuildingResponseDTO> findAll(Long Id, String districtId) {
+	public List<BuildingResponseDTO> findAll(Integer Id, Integer districtId) {
 		List<BuildingEntity> result=buildingrepository.findAll(Id, districtId);
 		List<BuildingResponseDTO> ans=new ArrayList<BuildingResponseDTO>();
 		for(BuildingEntity it:result) {
 			BuildingResponseDTO buildingreponsedto=new BuildingResponseDTO();
-			buildingreponsedto.setThongtin_building(it.getId()+", "+it.getName()+", "+it.getStreet()+", "+it.getWard()+", "+it.getDistrictId()+", "+it.getNumberofbasement());
-			ans.add(buildingreponsedto);
+			buildingreponsedto.setId(it.getId());
+			buildingreponsedto.setName(it.getName());
+			buildingreponsedto.setDistrictId(it.getDistrictId());
+			buildingreponsedto.setAddress(it.getStreet()+", "+it.getWard());
+			buildingreponsedto.setNumberofbasement(it.getNumberofbasement());
+			//ans.add(buildingreponsedto);
+			if(districtId.equals(it.getDistrictId())) ans.add(buildingreponsedto);
 		}
 		return ans;
 	}

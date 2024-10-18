@@ -54,8 +54,8 @@ public class NewAPI {
 	
 	
 	@GetMapping(value = "/api/building/")
-	public Object postBuilding2(@RequestParam(value="id",required = false) Integer Id111,@RequestParam(value="districtId",required=false) Integer districtId) {
-		List<BuildingResponseDTO> results=buildingservice.findAll(Id111,districtId);
+	public Object postBuilding2(@RequestParam(value="id",required = false) Integer Id,@RequestParam(value="districtId",required=false) Integer districtId) {
+		List<BuildingResponseDTO> results=buildingservice.findAll(Id,districtId);
 		return results;
 	}
 
@@ -82,7 +82,7 @@ public class NewAPI {
 //	}
 
 	@DeleteMapping(value = "/api/building/{id}")
-	public void deleteBuilding(@PathVariable Integer id) {
+	public void deleteBuilding(@PathVariable List<Long> id) {
 		System.out.print("đã xóa thành công tòa nhà có id là: " + id);
 	}
 

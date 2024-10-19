@@ -20,7 +20,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.*;
+import java.util.*;import java.util.concurrent.ConcurrentHashMap.KeySetView;
 
 import javax.swing.plaf.basic.BasicComboBoxUI.ListDataHandler;
 
@@ -50,12 +50,18 @@ public class NewAPI {
 		return "Restful-api";
 	}
 	
-	
-	
+//	
+	@GetMapping("/api")
+	public void gettt(@RequestParam Map<String,Object> map) {
+		for(String it:map.keySet()) {
+			System.out.println(it+" "+map.get(it));
+		}
+	}
 	
 	@GetMapping(value = "/api/building/")
-	public Object postBuilding2(@RequestParam(value="id",required = false) Integer Id,@RequestParam(value="districtId",required=false) Integer districtId) {
-		List<BuildingResponseDTO> results=buildingservice.findAll(Id,districtId);
+	public Object postBuilding2(@RequestParam Map<String,Object> request) {
+		List<BuildingResponseDTO> results=buildingservice.findAll(request);
+		//System.out.println(results.size());
 		return results;
 	}
 
@@ -85,5 +91,4 @@ public class NewAPI {
 	public void deleteBuilding(@PathVariable List<Long> id) {
 		System.out.print("đã xóa thành công tòa nhà có id là: " + id);
 	}
-
 }

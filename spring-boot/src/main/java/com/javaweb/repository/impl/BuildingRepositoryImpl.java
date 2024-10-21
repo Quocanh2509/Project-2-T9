@@ -19,28 +19,55 @@ import com.javaweb.repository.entity.BuildingEntity;
 public class BuildingRepositoryImpl implements BuildingRepository{
 
 	
-	static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/estatebasic";
+	static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/estabasic";
 	static final String USER = "root";
 	static final String PASS = "amfrbghaf123@";
 	
 	
 	@Override
 	public List<BuildingEntity> findAll(Map<String,Object> request) {
-		String sql ="SELECT * FROM building BD WHERE 1=1";
+		String sql ="SELECT * FROM building BD WHERE 1=1 ";
 		if (request.get("id") != null && !request.get("id").toString().isEmpty()) {
-		    sql += " AND BD.id = " + request.get("id") ;
+		    sql += " AND BD.id = " + request.get("id") ;//1
+		}
+		
+
+		if (request.get("ward") != null && request.get("ward").equals("")==false) {
+			
+		    sql += " AND BD.ward = '"+request.get("ward")+"'";//2
 		}
 
-//		sql +="SELECT * \r\n"
-//	    		+ "FROM building\r\n"
-//	    		+ "WHERE building.name LIKE '%building%';\r\n";
 		if (request.get("name")!=null&&request.get("name").equals("")==false) {
-		    sql += " AND BD.name LIKE '%" + request.get("name") + "%'";
+		    sql += " AND BD.name LIKE '%" + request.get("name") + "%'";//3
 		}
 		if(request.get("districtid")!=null&&!request.get("districtid").toString().isEmpty()) {
-			sql+= " AND BD.districtid = "+request.get("districtid");
+			sql+= " AND BD.districtid = "+request.get("districtid");//4
 		}
-
+		if(request.get("street")!=null&&request.get("street").equals("")==false) {
+			sql += " AND BD.street = '"+request.get("street")+"'";//5
+		}
+		if(request.get("floorarea")!=null&&!request.get("floorarea").toString().isEmpty()) {
+			sql += " AND BD.floorarea = "+request.get("floorarea");//6
+		}
+		if(request.get("numberofbasement")!=null&&!request.get("numberofbasement").toString().isEmpty()) {
+			sql += " AND BD.numberofbasement = "+request.get("numberofbasement");
+		}
+		if(request.get("managername")!=null&&request.get("managername").equals("")==false) {
+			sql += " AND BD.managername = '"+request.get("managername")+"'";
+		}
+		if(request.get("managerphonenumber")!=null&&request.get("managerphonenumber").equals("")==false) {
+			sql += " AND BD.managerphonenumber = '"+request.get("managerphonenumber")+"'";
+		}
+		if(request.containsKey("startprice")&&request.containsKey("endprice")) {
+			sql += " AND BD.rentprice>="+request.get("startprice")+" AND BD.rentprice<="+request.get("endprice");
+		}
+		else if(request.containsKey("startprice")) {
+			sql += " AND BD.rentprice>="+request.get("startprice");
+		}
+		else if(request.containsKey("endprice")) {
+			sql += " AND BD.rentprice<="+request.get("endprice");
+		}
+		System.out.println(sql);
 		List<BuildingEntity> arr=new ArrayList<>();
 		try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 			Statement stm = conn.createStatement();

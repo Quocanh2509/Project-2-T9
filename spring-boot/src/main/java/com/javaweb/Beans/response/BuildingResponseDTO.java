@@ -12,6 +12,7 @@ public class BuildingResponseDTO {
 	private String managername;
 	private String managerphonenumber;
 	private Integer rentprice;
+	private String area;
 	public Integer getId() {
 		return Id;
 	}
@@ -59,6 +60,12 @@ public class BuildingResponseDTO {
 	}
 	public void setRentprice(Integer rentprice) {
 		this.rentprice = rentprice;
+	}
+	public String getArea() {
+		return area;
+	}
+	public void setArea(String area) {
+		this.area = area;
 	}
 	
 	

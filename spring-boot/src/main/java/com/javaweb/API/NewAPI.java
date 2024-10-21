@@ -31,10 +31,14 @@ import com.javaweb.Beans.BuildingDTO;
 import com.javaweb.Beans.ErrorReponseDTO;
 import com.javaweb.Beans.MarketDTO;
 import com.javaweb.Beans.response.BuildingResponseDTO;
+import com.javaweb.Beans.response.RentareaResponseDTO;
 import com.javaweb.customexception.FileRequireException;
 import com.javaweb.repository.BuildingRepository;
+import com.javaweb.repository.RentareaRepository;
 import com.javaweb.repository.entity.BuildingEntity;
+import com.javaweb.repository.entity.RentareaEntity;
 import com.javaweb.service.BuildingService;
+import com.javaweb.service.RentareaService;
 
 import ch.qos.logback.core.joran.action.NewRuleAction;
 
@@ -45,6 +49,10 @@ public class NewAPI {
 	@Autowired
 	public BuildingService buildingservice;
 	
+	
+	@Autowired
+	public RentareaService rentareaservice;
+	
 	@PostMapping(value = "/api/building/")
 	public String update() {
 		return "Restful-api";
@@ -52,17 +60,24 @@ public class NewAPI {
 	
 //	
 	@GetMapping("/api")
-	public void gettt(@RequestParam Map<String,Object> map) {
-		for(String it:map.keySet()) {
-			System.out.println(it+" "+map.get(it));
-		}
+	public Object gettt(@RequestParam Map<String,Object> map) {
+		List<RentareaResponseDTO> results=rentareaservice.findAll(map);
+		return results;
 	}
 	
 	@GetMapping(value = "/api/building/")
 	public Object postBuilding2(@RequestParam Map<String,Object> request) {
-		List<BuildingResponseDTO> results=buildingservice.findAll(request);
+		List<BuildingResponseDTO> buildingresponsedto=buildingservice.findAll(request);
+		List<RentareaResponseDTO> rentarearesponsedto=rentareaservice.findAll(request);
 		//System.out.println(results.size());
-		return results;
+		for(BuildingResponseDTO it:buildingresponsedto) {
+			for(RentareaResponseDTO it2:rentarearesponsedto) {
+				if(it.getId().equals(it2.getId())) {
+					it.setArea(it2.getArea());
+				}
+			}
+		}
+		return buildingresponsedto;
 	}
 
 	// @RequestMapping(value = "/api/building/", method = RequestMethod.GET)

@@ -16,10 +16,10 @@ import com.javaweb.repository.RentareaRepository;
 import com.javaweb.repository.entity.RentareaEntity;
 
 @Repository
-public abstract class RentareaRepositoryImpl implements RentareaRepository {
+public class RentareaRepositoryImpl implements RentareaRepository {
 
 	
-	static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/estatebasic";
+	static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/estabasic";
 	
 	static final String USER = "root";
 	static final String PASS = "amfrbghaf123@";
@@ -27,16 +27,17 @@ public abstract class RentareaRepositoryImpl implements RentareaRepository {
 	
 	@Override
 	public List<RentareaEntity> findAlll(Map<String,Object> request) {
-		String sql="select * from rentarea RA";
-		if(request.containsKey("startarea")&&request.containsKey("endarea")) {
-			sql+="where RA.value>="+request.get("startarea")+" and RA<="+request.get("endarea");
+		String sql="select * from rentarea RA ";
+		if(request.containsKey("startarea")&&request.containsKey("endarea")&&!request.get("startarea").equals("")&&!request.get("endarea").equals("")) {
+			sql+="where RA.value>="+request.get("startarea")+" and RA.value<="+request.get("endarea");
 		}
-		else if(request.containsKey("startarea")&&request.get("startarea")!=""&&request.get("endarea")=="") {
+		else if(request.containsKey("startarea")&&request.get("startarea")!=null&&request.get("endarea").equals("")) {
 			sql+="where RA.value>="+request.get("startarea");
 		}
-		else if(request.get("startarea")==""&&request.containsKey("endarea")&&request.get("endarea")!="") {
+		else if(request.containsKey("startarea")&&request.get("startarea").equals("")&&request.containsKey("endarea")&&request.get("endarea")!=null) {
 			sql+="where RA.value<="+request.get("endarea");
 		}
+		System.out.println(sql);
 		List<RentareaEntity> arr=new ArrayList<RentareaEntity>();
 		try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 				Statement stm = conn.createStatement();

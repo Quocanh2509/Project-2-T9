@@ -57,28 +57,11 @@ public class NewAPI {
 	@Autowired
 	public BuildingrenttypeRepository buildingrenttypeRepository;
 	
-	@PostMapping(value = "/api/building/")
-	public String update() {
-		return "Restful-api";
-	}
-	
-//	
-	@GetMapping("/api")
-	public Object gettt(@RequestParam Map<String,Object> request) {
-		//List<RentareaResponseDTO> rentarearesponsedto=rentareaservice.findAll(request);
-		return null;
-	}
 	
 	@GetMapping(value = "/api/building/")
 	public Object postBuilding2(@RequestParam Map<String,Object> request) {
 		List<BuildingResponseDTO> result=rentareaservice.findAll(request);
 		return result;
-//		for(BuildingResponseDTO it:buildingresponsedto) {
-//			if(results.contains(it.getId())) {
-//				convert.add(it);
-//			}
-//		}
-//		return convert;
 	}
 
 	// @RequestMapping(value = "/api/building/", method = RequestMethod.GET)
@@ -95,16 +78,4 @@ public class NewAPI {
 //		return buildingDTO;
 //	}
 //	
-
-
-//	@RequestMapping(value = "/api/building/", method = RequestMethod.GET)
-//	public Object getBuilding(@RequestBody BuildingDTO buildingDTO) throws FileRequireException {
-//		validate(buildingDTO);
-//		return buildingDTO;
-//	}
-
-	@DeleteMapping(value = "/api/building/{id}")
-	public void deleteBuilding(@PathVariable List<Long> id) {
-		System.out.print("đã xóa thành công tòa nhà có id là: " + id);
-	}
 }

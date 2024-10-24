@@ -69,15 +69,13 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 		if(request.containsKey("startprice")&&request.containsKey("endprice")&&!request.get("endprice").equals("")&&!request.get("startprice").equals("")) {
 			sql += " AND BD.rentprice>="+request.get("startprice")+" AND BD.rentprice<="+request.get("endprice");
 		}
-		else if(request.containsKey("startprice")&&!request.get("startprice").equals("")&&request.get("endprice").equals("")) {
+		else if(request.containsKey("startprice")&&!request.get("startprice").equals("")) {
 			sql += " AND BD.rentprice>="+request.get("startprice");
 		}
-		else if(request.containsKey("endprice")&&request.get("startprice").equals("")&&!request.get("endprice").equals("")) {
+		else if(request.containsKey("endprice")&&!request.get("endprice").equals("")) {
 			sql += " AND BD.rentprice<="+request.get("endprice");
 		}
-		if(request.containsKey("tang-tret")||request.containsKey("nguyen-can")||request.containsKey("noi-that")) {
-			
-		}
+		
 		System.out.println(sql);
 		List<BuildingEntity> arr=new ArrayList<>();
 		try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);

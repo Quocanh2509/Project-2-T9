@@ -33,6 +33,8 @@ public class BuildingServiceImpl implements BuildingService {
 			buildingreponsedto.setManagername(it.getManagername());
 			buildingreponsedto.setManagerphonenumber(it.getManagerphonenumber());
 			buildingreponsedto.setRentprice(it.getRentprice());
+			buildingreponsedto.setServicefee(it.getServicefee());
+			buildingreponsedto.setBrokeragefee(it.getBrokeragefee());
 			ans.add(buildingreponsedto);
 			//ans.add(buildingreponsedto);
 			//if(districtId.equals(it.getDistrictId())) ans.add(buildingreponsedto);

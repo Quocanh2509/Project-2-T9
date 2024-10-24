@@ -13,6 +13,10 @@ public class BuildingResponseDTO {
 	private String managerphonenumber;
 	private Integer rentprice;
 	private String area;
+	private String servicefee;
+	private Integer brokeragefee;
+	private Integer emptyspace;
+	
 	public Integer getId() {
 		return Id;
 	}
@@ -67,6 +71,26 @@ public class BuildingResponseDTO {
 	public void setArea(String area) {
 		this.area = area;
 	}
+	
+	public String getServicefee() {
+		return servicefee;
+	}
+	public void setServicefee(String servicefee) {
+		this.servicefee = servicefee;
+	}
+	public Integer getBrokeragefee() {
+		return brokeragefee;
+	}
+	public void setBrokeragefee(Integer brokeragefee) {
+		this.brokeragefee = brokeragefee;
+	}
+	public Integer getEmptyspace() {
+		return emptyspace;
+	}
+	public void setEmptyspace(Integer emptyspace) {
+		this.emptyspace = emptyspace;
+	}
+	
 	
 	
 	

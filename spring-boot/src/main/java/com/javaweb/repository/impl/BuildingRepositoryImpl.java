@@ -26,12 +26,20 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 	
 	@Override
 	public List<BuildingEntity> findAll(Map<String,Object> request) {
-		String sql ="SELECT * FROM building BD WHERE 1=1 ";
+		String sql2="select * from building BD\r\n"
+				+ "inner join assignmentbuilding AB on AB.buildingid=BD.id\r\n"
+				+ "where AB.staffid=3;\r\n"
+				+ "";
+		
+		String sql ="SELECT * FROM building BD where 1=1";
+		if (request.get("staffid") != null) {
+		    sql += " AND EXISTS (SELECT 1 FROM assignmentbuilding AB WHERE AB.buildingid = BD.id";
+		    sql += " AND AB.staffid = " + request.get("staffid") + ")";
+		}
 		if (request.get("id") != null && !request.get("id").toString().isEmpty()) {
 		    sql += " AND BD.id = " + request.get("id") ;//1
 		}
 		
-
 		if (request.get("ward") != null && request.get("ward").equals("")==false) {
 			
 		    sql += " AND BD.ward = '"+request.get("ward")+"'";//2
@@ -58,14 +66,17 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 		if(request.get("managerphonenumber")!=null&&request.get("managerphonenumber").equals("")==false) {
 			sql += " AND BD.managerphonenumber = '"+request.get("managerphonenumber")+"'";
 		}
-		if(request.containsKey("startprice")&&request.containsKey("endprice")) {
+		if(request.containsKey("startprice")&&request.containsKey("endprice")&&!request.get("endprice").equals("")&&!request.get("startprice").equals("")) {
 			sql += " AND BD.rentprice>="+request.get("startprice")+" AND BD.rentprice<="+request.get("endprice");
 		}
-		else if(request.containsKey("startprice")) {
+		else if(request.containsKey("startprice")&&!request.get("startprice").equals("")&&request.get("endprice").equals("")) {
 			sql += " AND BD.rentprice>="+request.get("startprice");
 		}
-		else if(request.containsKey("endprice")) {
+		else if(request.containsKey("endprice")&&request.get("startprice").equals("")&&!request.get("endprice").equals("")) {
 			sql += " AND BD.rentprice<="+request.get("endprice");
+		}
+		if(request.containsKey("tang-tret")||request.containsKey("nguyen-can")||request.containsKey("noi-that")) {
+			
 		}
 		System.out.println(sql);
 		List<BuildingEntity> arr=new ArrayList<>();
@@ -84,6 +95,8 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 				building.setManagername(rs.getString("managername"));
 				building.setManagerphonenumber(rs.getString("managerphonenumber"));
 				building.setRentprice(rs.getInt("rentprice"));
+				building.setServicefee(rs.getString("servicefee"));
+				building.setBrokeragefee(rs.getInt("brokeragefee"));
 				arr.add(building);
 			}
 			System.out.println("Connected database successfully...");

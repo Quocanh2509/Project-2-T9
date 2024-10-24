@@ -34,6 +34,7 @@ import com.javaweb.Beans.response.BuildingResponseDTO;
 import com.javaweb.Beans.response.RentareaResponseDTO;
 import com.javaweb.customexception.FileRequireException;
 import com.javaweb.repository.BuildingRepository;
+import com.javaweb.repository.BuildingrenttypeRepository;
 import com.javaweb.repository.RentareaRepository;
 import com.javaweb.repository.entity.BuildingEntity;
 import com.javaweb.repository.entity.RentareaEntity;
@@ -53,6 +54,9 @@ public class NewAPI {
 	@Autowired
 	public RentareaService rentareaservice;
 	
+	@Autowired
+	public BuildingrenttypeRepository buildingrenttypeRepository;
+	
 	@PostMapping(value = "/api/building/")
 	public String update() {
 		return "Restful-api";
@@ -60,16 +64,18 @@ public class NewAPI {
 	
 //	
 	@GetMapping("/api")
-	public Object gettt(@RequestParam Map<String,Object> map) {
-		List<RentareaResponseDTO> results=rentareaservice.findAll(map);
-		return results;
+	public void gettt(@RequestParam Map<String,Object> map) {
+		
 	}
 	
 	@GetMapping(value = "/api/building/")
 	public Object postBuilding2(@RequestParam Map<String,Object> request) {
 		List<BuildingResponseDTO> buildingresponsedto=buildingservice.findAll(request);
 		List<RentareaResponseDTO> rentarearesponsedto=rentareaservice.findAll(request);
+		List<Integer> results=buildingrenttypeRepository.findAll(request);
 		//System.out.println(results.size());
+		List<BuildingResponseDTO> convert=new ArrayList<BuildingResponseDTO>();
+		
 		for(BuildingResponseDTO it:buildingresponsedto) {
 			for(RentareaResponseDTO it2:rentarearesponsedto) {
 				if(it.getId().equals(it2.getId())) {
@@ -77,7 +83,22 @@ public class NewAPI {
 				}
 			}
 		}
-		return buildingresponsedto;
+		for(BuildingResponseDTO it:buildingresponsedto) {
+			if(results.contains(it.getId())) {
+				convert.add(it);
+			}
+		}
+		int ans=0;
+		for(BuildingResponseDTO it:buildingresponsedto) {
+			if(it.getId()>ans) {
+				ans=it.getId();
+			}
+		}
+		return convert;
+//		if(convert.size()!=0) {
+//			return convert;
+//		}
+//		else return buildingresponsedto;
 	}
 
 	// @RequestMapping(value = "/api/building/", method = RequestMethod.GET)

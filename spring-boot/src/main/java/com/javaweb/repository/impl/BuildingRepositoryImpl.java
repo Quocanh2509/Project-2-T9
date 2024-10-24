@@ -26,10 +26,6 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 	
 	@Override
 	public List<BuildingEntity> findAll(Map<String,Object> request) {
-		String sql2="select * from building BD\r\n"
-				+ "inner join assignmentbuilding AB on AB.buildingid=BD.id\r\n"
-				+ "where AB.staffid=3;\r\n"
-				+ "";
 		
 		String sql ="SELECT * FROM building BD where 1=1";
 		if (request.get("staffid") != null) {
@@ -76,7 +72,7 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 			sql += " AND BD.rentprice<="+request.get("endprice");
 		}
 		
-		System.out.println(sql);
+		//System.out.println(sql);
 		List<BuildingEntity> arr=new ArrayList<>();
 		try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 			Statement stm = conn.createStatement();
@@ -97,10 +93,10 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 				building.setBrokeragefee(rs.getInt("brokeragefee"));
 				arr.add(building);
 			}
-			System.out.println("Connected database successfully...");
+			//System.out.println("Connected database successfully...");
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Connected database failed...");
+			//System.out.println("Connected database failed...");
 		}
 
 		return arr;

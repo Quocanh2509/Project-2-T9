@@ -31,13 +31,13 @@ public class RentareaRepositoryImpl implements RentareaRepository {
 		if(request.containsKey("startarea")&&request.containsKey("endarea")&&!request.get("startarea").equals("")&&!request.get("endarea").equals("")) {
 			sql+="where RA.value>="+request.get("startarea")+" and RA.value<="+request.get("endarea");
 		}
-		else if(request.containsKey("startarea")&&request.get("startarea")!=null&&request.get("endarea").equals("")) {
+		else if(request.containsKey("startarea")&&(request.get("startarea")!=null||request.get("startarea").equals(""))) {
 			sql+="where RA.value>="+request.get("startarea");
 		}
-		else if(request.containsKey("startarea")&&request.get("startarea").equals("")&&request.containsKey("endarea")&&request.get("endarea")!=null) {
+		else if(request.containsKey("endarea")&&(request.get("endarea")!=null||request.get("endarea").equals(""))) {
 			sql+="where RA.value<="+request.get("endarea");
 		}
-		System.out.println(sql);
+		//System.out.println(sql);
 		List<RentareaEntity> arr=new ArrayList<RentareaEntity>();
 		try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 				Statement stm = conn.createStatement();
@@ -51,7 +51,7 @@ public class RentareaRepositoryImpl implements RentareaRepository {
 			System.out.println("Connected database successfully...");
 		}catch(SQLException e) {
 			e.printStackTrace();
-			System.out.println("Connected database failed...");
+			//System.out.println("Connected database failed...");
 		}
 		return arr;
 	}

@@ -64,35 +64,21 @@ public class NewAPI {
 	
 //	
 	@GetMapping("/api")
-	public void gettt(@RequestParam Map<String,Object> map) {
-		
+	public Object gettt(@RequestParam Map<String,Object> request) {
+		//List<RentareaResponseDTO> rentarearesponsedto=rentareaservice.findAll(request);
+		return null;
 	}
 	
 	@GetMapping(value = "/api/building/")
 	public Object postBuilding2(@RequestParam Map<String,Object> request) {
-		List<BuildingResponseDTO> buildingresponsedto=buildingservice.findAll(request);
-		List<RentareaResponseDTO> rentarearesponsedto=rentareaservice.findAll(request);
-		List<Integer> results=buildingrenttypeRepository.findAll(request);
-		//System.out.println(results.size());
-		List<BuildingResponseDTO> convert=new ArrayList<BuildingResponseDTO>();
-		
-		for(BuildingResponseDTO it:buildingresponsedto) {
-			for(RentareaResponseDTO it2:rentarearesponsedto) {
-				if(it.getId().equals(it2.getId())) {
-					it.setArea(it2.getArea());
-				}
-			}
-		}
-		for(BuildingResponseDTO it:buildingresponsedto) {
-			if(results.contains(it.getId())) {
-				convert.add(it);
-			}
-		}
-		return convert;
-//		if(convert.size()!=0) {
-//			return convert;
+		List<BuildingResponseDTO> result=rentareaservice.findAll(request);
+		return result;
+//		for(BuildingResponseDTO it:buildingresponsedto) {
+//			if(results.contains(it.getId())) {
+//				convert.add(it);
+//			}
 //		}
-//		else return buildingresponsedto;
+//		return convert;
 	}
 
 	// @RequestMapping(value = "/api/building/", method = RequestMethod.GET)

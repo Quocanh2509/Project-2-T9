@@ -88,12 +88,6 @@ public class NewAPI {
 				convert.add(it);
 			}
 		}
-		int ans=0;
-		for(BuildingResponseDTO it:buildingresponsedto) {
-			if(it.getId()>ans) {
-				ans=it.getId();
-			}
-		}
 		return convert;
 //		if(convert.size()!=0) {
 //			return convert;

@@ -20,7 +20,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.*;
+import java.util.*;import java.util.concurrent.ConcurrentHashMap.KeySetView;
 
 import javax.swing.plaf.basic.BasicComboBoxUI.ListDataHandler;
 
@@ -31,10 +31,15 @@ import com.javaweb.Beans.BuildingDTO;
 import com.javaweb.Beans.ErrorReponseDTO;
 import com.javaweb.Beans.MarketDTO;
 import com.javaweb.Beans.response.BuildingResponseDTO;
+import com.javaweb.Beans.response.RentareaResponseDTO;
 import com.javaweb.customexception.FileRequireException;
 import com.javaweb.repository.BuildingRepository;
+import com.javaweb.repository.BuildingrenttypeRepository;
+import com.javaweb.repository.RentareaRepository;
 import com.javaweb.repository.entity.BuildingEntity;
+import com.javaweb.repository.entity.RentareaEntity;
 import com.javaweb.service.BuildingService;
+import com.javaweb.service.RentareaService;
 
 import ch.qos.logback.core.joran.action.NewRuleAction;
 
@@ -45,18 +50,11 @@ public class NewAPI {
 	@Autowired
 	public BuildingService buildingservice;
 	
-	@PostMapping(value = "/api/building/")
-	public String update() {
-		return "Restful-api";
-	}
-	
-	
-	
 	
 	@GetMapping(value = "/api/building/")
-	public Object postBuilding2(@RequestParam(value="id",required = false) Integer Id,@RequestParam(value="districtId",required=false) Integer districtId) {
-		List<BuildingResponseDTO> results=buildingservice.findAll(Id,districtId);
-		return results;
+	public Object postBuilding2(@RequestParam Map<String,Object> request) {
+		List<BuildingResponseDTO> result=buildingservice.findAll(request);
+		return result;
 	}
 
 	// @RequestMapping(value = "/api/building/", method = RequestMethod.GET)
@@ -73,17 +71,4 @@ public class NewAPI {
 //		return buildingDTO;
 //	}
 //	
-
-
-//	@RequestMapping(value = "/api/building/", method = RequestMethod.GET)
-//	public Object getBuilding(@RequestBody BuildingDTO buildingDTO) throws FileRequireException {
-//		validate(buildingDTO);
-//		return buildingDTO;
-//	}
-
-	@DeleteMapping(value = "/api/building/{id}")
-	public void deleteBuilding(@PathVariable Integer id) {
-		System.out.print("đã xóa thành công tòa nhà có id là: " + id);
-	}
-
 }

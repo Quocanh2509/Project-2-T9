@@ -57,6 +57,8 @@ public class NewAPI {
 		return result;
 	}
 
+	
+	
 	// @RequestMapping(value = "/api/building/", method = RequestMethod.GET)
 	public void validate(BuildingDTO buildingDTO) throws FileRequireException {
 		if (buildingDTO.getName() == null || buildingDTO.getName().equals("")) {

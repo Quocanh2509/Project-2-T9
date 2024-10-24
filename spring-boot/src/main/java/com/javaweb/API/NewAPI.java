@@ -51,16 +51,9 @@ public class NewAPI {
 	public BuildingService buildingservice;
 	
 	
-	@Autowired
-	public RentareaService rentareaservice;
-	
-	@Autowired
-	public BuildingrenttypeRepository buildingrenttypeRepository;
-	
-	
 	@GetMapping(value = "/api/building/")
 	public Object postBuilding2(@RequestParam Map<String,Object> request) {
-		List<BuildingResponseDTO> result=rentareaservice.findAll(request);
+		List<BuildingResponseDTO> result=buildingservice.findAll(request);
 		return result;
 	}
 

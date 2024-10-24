@@ -7,5 +7,5 @@ import com.javaweb.Beans.response.BuildingResponseDTO;
 import com.javaweb.Beans.response.RentareaResponseDTO;
 
 public interface RentareaService {
-	public List<BuildingResponseDTO> findAll(Map<String,Object> request);
+	public List<RentareaResponseDTO> findAll(Map<String,Object> request);
 }
